@@ -5,7 +5,7 @@
   yum_repository:
     name: cloudera-manager
     description: Cloudera Manager
-    baseurl: https://archive.cloudera.com/cm5/redhat/7/x86_64/cm/5.13/
+    baseurl: https://archive.cloudera.com/cm5/redhat/7/x86_64/cm/5.12/
     gpgkey: https://archive.cloudera.com/cm5/redhat/7/x86_64/cm/RPM-GPG-KEY-cloudera
     gpgcheck: yes
     enabled: yes
