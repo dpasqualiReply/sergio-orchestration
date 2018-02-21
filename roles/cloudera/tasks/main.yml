@@ -11,7 +11,8 @@
 
 - name: Install Oracle Java
   include_role:
-    name: oracle-java-8u144-tgz
+    #name: oracle-java-8u144-tgz
+    name: oracle-java
 
 - name: Install Cloudera Manager with Path B
   include_role:
