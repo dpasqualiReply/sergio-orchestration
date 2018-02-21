@@ -1,0 +1,22 @@
+---
+# tasks file for oracle-java-8u144-rpm
+
+- name: Install Oracle JDK
+  yum: name={{ item }} state=latest update_cache=yes
+  with_items:
+    - wget
+    - curl
+    - unzip
+    - git
+
+- name: Donwload Oracle JDK 1.8u144 from mirror (oracle archite require login)
+  get_url:
+     url: https://mirror.its.sfu.ca/mirror/CentOS-Third-Party/NSG/common/x86_64/jdk-8u144-linux-x64.rpm
+     dest: /opt/jdk-8u144-linux-x64.rpm
+     mode: 0440
+
+- name: Install Oracle JDK 1.8u144
+  yum:
+     name: /opt/jdk-8u144-linux-x64.rpm
+     state: present
+

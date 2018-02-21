@@ -1,0 +1,48 @@
+---
+# tasks file for oracle-java-8u144-tgz
+
+- name: Install Oracle JDK
+  yum: name={{ item }} state=latest update_cache=yes
+  with_items:
+    - wget
+    - curl
+    - unzip
+    - git
+
+- name: Donwload Oracle JDK 1.8u144 tar.gz from mirror (oracle archive require login)
+  get_url:
+     url: http://ftp.osuosl.org/pub/funtoo/distfiles/oracle-java/jdk-8u144-linux-x64.tar.gz
+     dest: /opt/jdk-8u144-linux-x64.tar.gz
+     mode: 0440
+
+- name: Extract Java 1.8 tar.gz
+  unarchive:
+    src: /opt/jdk-8u144-linux-x64.tar.gz
+    dest: /usr/java/
+
+- name: Ensure Export file exists
+  copy:
+    content: ""
+    dest: /etc/profile.d/exports.sh
+    force: no
+    group: root
+    owner: root
+    mode: 0555
+
+- name: Export Java home
+  lineinfile:
+    path: /etc/profile.d/exports.sh
+    state: present
+    insertafter: EOF
+    line: 'export JAVA_HOME=/usr/java/jdk.1.8.0_144'
+
+- name: Export Path
+  lineinfile:
+    path: /etc/profile.d/exports.sh
+    state: present
+    insertafter: EOF
+    line: 'export PATH=$PATH:$JAVA_HOME/bin'
+
+- name: Source evn variables
+  shell: /etc/profile.d/exports.sh
+
